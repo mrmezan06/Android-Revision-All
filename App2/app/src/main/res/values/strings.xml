@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">App2</string>
+    <string name="message">Message ...</string>
+    <string name="show">Show</string>
+</resources>
