@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -21,17 +22,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView courseIV;
+    private GridView gridView;
     private ProgressBar loadingPB;
+    private List<Model> modelList = new ArrayList<Model>();
+    MyAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         loadingPB = findViewById(R.id.idLoadingPB);
-        courseIV = findViewById(R.id.idIVCourse);
+        gridView = findViewById(R.id.idGridView);
+
+        adapter = new MyAdapter(this, modelList);
+        gridView.setAdapter(adapter);
 
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         String url = getString(R.string.url) + getString(R.string.access_key);
@@ -40,57 +49,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 loadingPB.setVisibility(View.GONE);
-                courseIV.setVisibility(View.VISIBLE);
+                gridView.setVisibility(View.VISIBLE);
 
                 try {
-                    JSONObject jsonObject = response.getJSONObject(0);
-                    JSONObject imgUrlObject = jsonObject.getJSONObject("urls");
-                    String imgUrl = imgUrlObject.getString("small");
-                    Picasso.get().load(imgUrl).into(courseIV);
-                    Log.d("IMAGEURL", imgUrl);
+
+
+                    //Picasso.get().load(imgUrl).into(courseIV);
+                    Log.d("IMAGEURL", String.valueOf(response.length()));
+                    for(int i=0; i<response.length();i++){
+                        Model model = new Model();
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        JSONObject imgUrlObject = jsonObject.getJSONObject("urls");
+                        String imgUrl = imgUrlObject.getString("regular");
+
+//                        jsonObject.getString("description");
+//                        String imgDesc = jsonObject.getString("description");
+
+                        String imgSize = jsonObject.getString("width")+" X "+jsonObject.getString("height");
+
+                        model.setImageUrl(imgUrl);
+//                        model.setImageDesc(imgDesc);
+                        model.setImageSize(imgSize);
+                        modelList.add(model);
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
+                // adapter notifier
 
+                adapter.notifyDataSetChanged();
                 Log.d("Main Response", response.toString());
             }
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                // inside the on response method.
-//                // we are hiding our progress bar.
-//                loadingPB.setVisibility(View.GONE);
-//
-//                // in below line we are making our card
-//                // view visible after we get all the data.
-//                // courseCV.setVisibility(View.VISIBLE);
-//                // now we get our response from API in json object format.
-//                // in below line we are extracting a string with its key
-//                // value from our json object.
-//                // similarly we are extracting all the strings from our json object.
-//                // String courseName = response.getString("courseName");
-//                // String courseTracks = response.getString("courseTracks");
-//                //  String courseMode = response.getString("courseMode");
-//                try {
-//                    String courseImageURL = response.getString("courseimg");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-
-                // after extracting all the data we are
-                // setting that data to all our views.
-                // courseNameTV.setText(courseName);
-                // courseTracksTV.setText(courseTracks);
-                // courseBatchTV.setText(courseMode);
-
-                // we are using picasso to load the image from url.
-                //  Picasso.get().load(courseImageURL).into(courseIV);
-//                System.out.println(response.toString());
-//            }
         }, new Response.ErrorListener() {
-            // this is the error listener method which
-            // we will call if we get any error from API.
+
             @Override
             public void onErrorResponse(VolleyError error) {
                 // below line is use to display a toast message along with our error.
