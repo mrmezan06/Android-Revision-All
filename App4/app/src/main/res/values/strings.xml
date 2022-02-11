@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">App4</string>
-    <string name="url">https://api.unsplash.com/photos/?client_id=</string>
-    <string name="access_key">Sp-dh4HdBINWnBEiNml6br1AfjS0kYc1fjnTU87F714</string>
+    <string name="url">https://api.unsplash.com/photos/?page=</string>
+    <string name="access_key">client_id=Sp-dh4HdBINWnBEiNml6br1AfjS0kYc1fjnTU87F714</string>
 </resources>

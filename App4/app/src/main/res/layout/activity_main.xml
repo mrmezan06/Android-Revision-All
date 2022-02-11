@@ -14,9 +14,40 @@
         android:visibility="gone"
         android:numColumns="2"
         />
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:weightSum="10"-->
+<!--        android:gravity="center"-->
+<!--        android:background="#4013A2"-->
+<!--        android:visibility="gone"-->
+<!--        >-->
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="5"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:backgroundTint="@color/design_default_color_primary"-->
+<!--            app:srcCompat="@drawable/arrow_back"-->
+<!--            android:layout_marginEnd="80dp"-->
+<!--            android:id="@+id/backwardBTN"-->
+<!--            />-->
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="5"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:backgroundTint="@color/design_default_color_primary"-->
+<!--            app:srcCompat="@drawable/forward"-->
+<!--            android:id="@+id/forwardBTN"-->
+<!--            />-->
+<!--    </LinearLayout>-->
     <ProgressBar
         android:id="@+id/idLoadingPB"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible" />
+
 </LinearLayout>

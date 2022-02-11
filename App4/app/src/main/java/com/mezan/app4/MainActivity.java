@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         gridView.setAdapter(adapter);
 
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+
         String url = getString(R.string.url) + getString(R.string.access_key);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
