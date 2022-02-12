@@ -6,17 +6,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:weightSum="10"
     tools:context=".MainActivity">
     <GridView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
         android:id="@+id/idGridView"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:numColumns="2"
         />
+    <LinearLayout
+        android:id="@+id/btnRoot"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/purple_200"
+        android:gravity="center"
+        android:visibility="invisible"
+        >
+        <Button
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:shadowRadius="@integer/material_motion_duration_medium_2"
+            android:background="@drawable/ic_baseline_refresh_24"
+            android:padding="5dp"
+            android:id="@+id/forwardBtn"
+            />
+
+    </LinearLayout>
     <ProgressBar
         android:id="@+id/idLoadingPB"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible" />
+
 </LinearLayout>

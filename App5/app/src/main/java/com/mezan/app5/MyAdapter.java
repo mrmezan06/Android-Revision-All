@@ -42,7 +42,13 @@ public class MyAdapter extends BaseAdapter {
         imageView = view.findViewById(R.id.idImageView);
 
         sizeView = view.findViewById(R.id.idImageSize);
-        Picasso.get().load(modelList.get(i).imageUrl).into(imageView);
+        Picasso
+                .get()
+                .load(modelList.get(i).imageUrl)
+                .placeholder(R.drawable.ic_baseline_person_outline_128)
+                .resize(160, 150)
+                .centerCrop()
+                .into(imageView);
         sizeView.setText(modelList.get(i).imageSize);
         Log.d("IMAGE LIST",String.valueOf(modelList.size()));
         return view;
