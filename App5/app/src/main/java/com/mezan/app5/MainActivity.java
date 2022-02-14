@@ -2,8 +2,14 @@ package com.mezan.app5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +19,8 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,10 +77,70 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        if (isNetworkConnected()){
+            ConnectionCheck();
+            Updating_View();
+            forwardBtn.setEnabled(true);
+        }else {
+           // forwardBtn.setEnabled(false);
+        }
+
         // Initial Load
-        Updating_View();
+
 
     }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(!(cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected())){
+            showNetworkDialog();
+            return false;
+        }
+        return true;
+    }
+    private void ConnectionCheck(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkRequest networkRequest = new NetworkRequest.Builder().build();
+            connectivityManager.registerNetworkCallback(networkRequest, new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(Network network) {
+                    super.onAvailable(network);
+                    Log.i("Tag", "active connection");
+                }
+
+                @Override
+                public void onLost(Network network) {
+                    super.onLost(network);
+                    Log.i("Tag", "losing active connection");
+                    isNetworkConnected();
+                }
+            });
+        }
+    }
+
+    private void showNetworkDialog(){
+        new AlertDialog.Builder(MainActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Connection lost?")
+                .setMessage("Please check your internet connection!")
+                .setCancelable(false)
+                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        isNetworkConnected();
+                    }
+                })
+                .show();
+    }
+
+
     void Updating_View(){
         try {
             if(!modelList.isEmpty()){
@@ -95,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (JSONException e) {
             e.printStackTrace();
-           // Toast.makeText(MainActivity.this, "JSON Read Failed!",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "JSON Read Failed!",Toast.LENGTH_LONG).show();
         }
 
         progressBar.setVisibility(View.GONE);
