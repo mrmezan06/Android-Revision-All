@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        android:background="#560bad"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:padding="5dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search"
+        android:layout_margin="15dp"
+        android:inputType="text"
+        android:id="@+id/search"
+        android:background="@drawable/rounded_edittext"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:shadowColor="#7400b8"
+        android:shadowDx="1.2"
+        android:shadowDy="1.2"
+        android:shadowRadius="4.5"
+        />
+
+
+
+
+
+</LinearLayout>

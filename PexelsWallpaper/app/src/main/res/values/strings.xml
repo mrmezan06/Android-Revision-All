@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Pexels Wallpaper</string>
+    <string name="title">
+        <font color='#FFFFFF'>Wallpaper</font> <font color='#dc2f02'>Store</font>
+    </string>
+    <string name="search">search wallpapers</string>
+    <string name="wild_life">Wild Life</string>
+    <string name="next">Next</string>
+    <string name="title_activity_full_image">FullImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="set">Set Wallpaper</string>
+</resources>
